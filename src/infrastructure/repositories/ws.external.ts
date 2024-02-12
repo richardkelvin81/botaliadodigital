@@ -12,10 +12,10 @@ class WsTransporter extends Client implements LeadExternal {
     super({
       authStrategy: new LocalAuth(),
       puppeteer: {
-    
+        headless: true,
         args: [
-          '--no-sandbox',
-          '--disable-dev-shm-usage'
+          "--disable-setuid-sandbox",
+          "--unhandled-rejections=strict",
         ],
       },
     });
@@ -37,6 +37,12 @@ class WsTransporter extends Client implements LeadExternal {
     this.on("qr", (qr) => {
       console.log("Escanea el codigo QR que esta en la carepta tmp");
       this.generateImage(qr);
+    });
+
+    this.on('message', async msg => {
+      if (msg.body.toLowerCase() === 'hola') {
+        await this.sendMessage(msg.from, 'Hola, bienvenido a TAXICORP');
+      }
     });
   }
 
