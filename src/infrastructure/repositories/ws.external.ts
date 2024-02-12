@@ -14,9 +14,7 @@ class WsTransporter extends Client implements LeadExternal {
       puppeteer: {
         headless: true,
         args: [
-          '--no-sandbox',
-          "--disable-setuid-sandbox",
-          "--unhandled-rejections=strict",
+          '--no-sandbox'
         ],
       },
     });
